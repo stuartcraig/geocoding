@@ -85,7 +85,7 @@ Things to watch out for:
 	use ${ddGC}/zip2county/GC_zip2county_allQ.dta, clear
 	cap mkdir ${oGC}/zip2county
 	cd ${oGC}/zip2county
-/*
+
 // 1. Incomplete panels
 	preserve
 		gcollapse (count) Nq=q, by(zip) fast
@@ -94,7 +94,9 @@ Things to watch out for:
 		tw bar Nz Nq, barw(0.9) fi(100) /// 
 			xtitle("Number of Quarters in the Data") ///
 			ytitle("Number of Zip Codes") ylab(0(10000)40000,format(%76.0fc))
+		graph export GC_zip2county_panelbalance.png, width(1000) replace
 	restore
+	
 */
 // 2. Inconsistent county mappings
 	*qbys zip (county): gen prob = county[1]!=county[_N]
@@ -105,16 +107,33 @@ Things to watch out for:
 		gen Nc = 1
 		gcollapse (sum) Nc, by(zip) fast
 		tab Nc
+		qui count if Nc==1
+		loc N0: di %6.0fc r(N)
 		drop if Nc==1
 		tw hist Nc, width(1) discrete lc(white) fi(100) ///
 			xlab(2/3) freq  ///
-			ytitle("Number of Zip Codes")
+			ytitle("Number of Zip Codes") xtitle("Number of Counties (N=0 for `N0' Zip Codes)")
+		graph export GC_zip2county_multicounty1.png, width(1000) replace
 	restore
 	
-	
-	
-	*qbys zip (county): gen prob = county[1]!=county[_N]
-	*keep if prob==1
+	// How many switches?
+	preserve
+		* keep zip county
+		gegen i = group(zip)
+		tsset i q
+		gen fips = real(county)
+		gen switch = l.fips!=fips & !missing(l.fips)
+		gcollapse (sum) Nswitch=switch, by(zip) fast
+ 		gen Nz = 1
+		gcollapse (sum) Nz, by(Nswitch) fast
+		qui summ Nz if Nswitch==0, mean
+		loc N0: di %6.0fc r(mean)
+		drop if Nswitch==0
+		tw bar Nz Nswitch, barw(0.9) fi(100) /// 
+			xtitle("Number of Switches (N=0 for `N0' Zip Codes)") ///
+			ytitle("Number of Zip Codes")
+		graph export GC_zip2county_multicounty2.png, width(1000) replace
+	restore
 	
 
 
