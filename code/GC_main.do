@@ -13,25 +13,38 @@ global ddGC	"${rootdir}/deriveddata"
 global rdGC	"${rootdir}/rawdata"
 global oGC	"${rootdir}/output"
 global tGC	"${rootdir}/temp"
+adopath + ~/Dropbox/ado_shared
 if "`nodata'"=="nodata" exit
 
 
+/*
+--------------------------------------------
+
+Administrative boundary crosswalks
+
+--------------------------------------------
+*/
+
+// zip2county crosswalk (s)
+	qui do ${scGC}/GC_zip2county.do
+
+// county2cbsa
+// county2cz
+// state key
+// congressional districts
+
+
+/*
+--------------------------------------------
+
+Distance matrices
+- Hospital to hospital
+- Hospital to zip
+
+--------------------------------------------
+*/
 
 
 
-e
 
-
-cd ${rdGC}/hud
-qui fs ZIP_COUNTY_*xlsx
-foreach file in `r(files)' {
-	di "`file'"
-	loc dt = subinstr("`file'","ZIP_COUNTY_","",.)
-	loc dt = subinstr("`dt'",".xlsx","",.)
-	loc q = (real(substr("`dt'",1,2)))/3
-	loc y = real(substr("`dt'",-4,4))
-	di "`y'Q`q'", _c
-}
 exit
-
-

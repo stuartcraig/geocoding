@@ -1,21 +1,33 @@
-// Zip/county files must be pulled individually off the HUD site
-// https://www.huduser.gov/portal/datasets/usps_crosswalk.html
-// Downloaded 4/28/2023
+/*------------------------------------------------------------- GC_zip2county.do
+File to clean zip code/county crosswalk(s)
 
-qui do ~/Dropbox/_data/geocoding/code/GC_main.do nodata
 
+Stuart Craig
+20230501
+*/
+
+// Loading presets
+	qui do ~/Dropbox/_data/geocoding/code/GC_main.do nodata
+
+// Toggle to create the descriptive figures
+	loc probfigs=0
 
 /*
-----------------------------------------------
+--------------------------------------------------------------------------------
 
 Raw data pull
 
-----------------------------------------------
+Note: Zip/county files must be pulled 
+	individually off the HUD site 
+	(Downloaded 4/28/2023)
+	
+https://www.huduser.gov/portal/datasets/usps_crosswalk.html
+
+--------------------------------------------------------------------------------
 */
 
 cap mkdir ${ddGC}/zip2county
 cap mkdir ${ddGC}/zip2county/Qfiles
-
 cap confirm file ${ddGC}/zip2county/GC_zip2county_allQ.dta
 if _rc!=0 {
 
@@ -74,14 +86,17 @@ if _rc!=0 {
 
 
 /*
-----------------------------------------------
+--------------------------------------------------------------------------------
 
 Things to watch out for: 
+- Some zip codes are created/dropped
+- Some zip codes have different county majority shares in different years
+	(small issue but needs to be dealt with)
 
-----------------------------------------------
+--------------------------------------------------------------------------------
 */
 
-
+if `probfigs'==1 {
 	use ${ddGC}/zip2county/GC_zip2county_allQ.dta, clear
 	cap mkdir ${oGC}/zip2county
 	cd ${oGC}/zip2county
@@ -99,8 +114,7 @@ Things to watch out for:
 	
 */
 // 2. Inconsistent county mappings
-	*qbys zip (county): gen prob = county[1]!=county[_N]
-	*keep if prob==1
+	// 2.1 How many counties per zip? 
 	preserve
 		keep zip county
 		gduplicates drop
@@ -116,7 +130,7 @@ Things to watch out for:
 		graph export GC_zip2county_multicounty1.png, width(1000) replace
 	restore
 	
-	// How many switches?
+	// 2.2 How many switches?
 	preserve
 		* keep zip county
 		gegen i = group(zip)
@@ -134,7 +148,7 @@ Things to watch out for:
 			ytitle("Number of Zip Codes")
 		graph export GC_zip2county_multicounty2.png, width(1000) replace
 	restore
-	
+}
 
 
 exit
