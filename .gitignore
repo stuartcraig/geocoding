@@ -1,6 +1,5 @@
 .DS_Store
 /deriveddata
 /rawdata
-/output
 /temp
 update_git.sh
