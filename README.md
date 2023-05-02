@@ -6,10 +6,12 @@ A suite of geocoding datasets and tools. Maintained by Stuart Craig. Did you lea
 
 The zip2county crosswalk is derived from the HUD data [LINK], which is provided quarterly from 2010Q1 and currently available through 2019Q4. 
 
-Things to watch out for: 
-- Incomplete zip panels
-- Zip codes assigned to multiple counties
+### Processing
+There is not a clean many-to-1 mapping between zip codes and counties. For each zip code, the HUD reports the share of addresses within each zip code that exist in each county. Our processing procedure selects the county for each zip code that has the most residential addresses. In the event of a tie, we prioritize business addresses, followed by "other" addresses. 
 
+### Things to watch out for:
+- *Incomplete zip panels:* 
+- *Zip codes assigned to multiple counties:* 
 
 ## Update log
 

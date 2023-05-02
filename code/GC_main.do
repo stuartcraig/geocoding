@@ -26,8 +26,10 @@ Administrative boundary crosswalks
 */
 
 // zip2county crosswalk (s)
-	qui do ${scGC}/GC_zip2county.do
+	qui do ${scGC}/zip2county/GC_zip2county.do
 
+	
+	
 // county2cbsa
 // county2cz
 // state key
