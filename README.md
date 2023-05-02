@@ -15,7 +15,7 @@ There is not a clean many-to-1 mapping between zip codes and counties. For each 
 
 ### Things to watch out for
 - **Incomplete zip panels:**
-<img src="output/zip2county/GC_zip2county_panelbalance.png" width="50%" height=50%>
+<img src="output/zip2county/GC_zip2county_panelbalance.png" width="75%" height=75% align="center">
 
 - **Zip codes assigned to multiple counties:** 
 
