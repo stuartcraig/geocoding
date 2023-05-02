@@ -13,6 +13,8 @@ The zip2county crosswalk is derived from the HUD data [LINK], which is provided 
 
 There is not a clean many-to-1 mapping between zip codes and counties. For each zip code, the HUD reports the share of addresses within each zip code that exist in each county. Our processing procedure selects the county for each zip code that has the most residential addresses. In the event of a tie, we prioritize business addresses, followed by "other" addresses. 
 
+Our final file `GC_zip2county_allQ.dta` contains quarterly observations for each zip code, where the `county` variable reports the 5-digit FIPS code of the county selected using the above procedure.
+
 ### Things to watch out for
 - **Incomplete zip panels:**
 <img src="output/zip2county/GC_zip2county_panelbalance.png" width="75%" height=75% align="center">
