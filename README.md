@@ -1,6 +1,9 @@
 # geocoding
+Maintained by Stuart Craig.
 
-A suite of geocoding datasets and tools. Maintained by Stuart Craig. Did you learn something about the data that ought to be incorporated? Email me at [EMAIL].
+This repository contains a suite of geocoding datasets and tools. 
+
+Did you learn something about the data that ought to be incorporated? Email me at [EMAIL].
 
 ## zip2county
 
