@@ -17,7 +17,7 @@ Our final file `GC_zip2county_allQ.dta` contains quarterly observations for each
 
 ### Things to watch out for
 - **Incomplete zip panels:**
-<img src="output/zip2county/GC_zip2county_panelbalance.png" width="75%" height=75% align="center">
+<img src="output/zip2county/GC_zip2county_panelbalance.png" width="75%" height=75% align="middle">
 
 - **Zip codes assigned to multiple counties:** 
 
