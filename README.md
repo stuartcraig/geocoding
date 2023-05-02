@@ -16,15 +16,19 @@ There is not a clean many-to-1 mapping between zip codes and counties. For each 
 Our final file `GC_zip2county_allQ.dta` contains quarterly observations for each zip code, where the `county` variable reports the 5-digit FIPS code of the county selected using the above procedure.
 
 ### Things to watch out for
+
 - **Incomplete zip panels:**
 <img src="output/zip2county/GC_zip2county_panelbalance.png" width="75%" height=75% align="middle">
 
 - **Zip codes assigned to multiple counties:** 
+<img src="output/zip2county/GC_zip2county_multicounty2.png" width="75%" height=75% align="middle">
 
 ## Update log
+
 - A placeholder section
 
 ## Known issues (to-do)
+
 - Add
 	- State key -- fips, census, name, abbrev, aha code
 	- county2cz
